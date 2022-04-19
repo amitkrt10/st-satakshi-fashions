@@ -5,7 +5,7 @@ from google.oauth2 import service_account
 from gsheetsdb import connect
 import pandas as pd
 
-st.image("https://ibb.co/CmtZf7Q")
+st.title("**Satakshi Fashions**")
          
 # Create a connection object.
 credentials = service_account.Credentials.from_service_account_info(
