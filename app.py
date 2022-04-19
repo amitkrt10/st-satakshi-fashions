@@ -5,8 +5,8 @@ from google.oauth2 import service_account
 from gsheetsdb import connect
 import pandas as pd
 
-st.image("https://www.canva.com/design/DAE993gR0YM/hjfZG3-nOvatdPiUuTGNIw/view?utm_content=DAE993gR0YM&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton")
-
+st.image("https://www.canva.com/design/DAE993gR0YM/K2fSEsQB9WoVid0aWU7gWg/watch?utm_content=DAE993gR0YM&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink")
+         
 # Create a connection object.
 credentials = service_account.Credentials.from_service_account_info(
     st.secrets["gcp_service_account"],
