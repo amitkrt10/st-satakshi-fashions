@@ -21,9 +21,7 @@ def run_query(query):
     rows = rows.fetchall()
     return rows
 
-sheet_url = st.secrets["private_gsheets_url"]
+sheet_url = st.secrets["https://docs.google.com/spreadsheets/d/1XTagWQZDX76UgMGylmMb99QGbGSD_myrPqaAfxQluPo/edit#gid=0"]
 rows = run_query(f'SELECT * FROM "{sheet_url}"')
 
-# Print results.
-for row in rows:
-    st.write(f"{row.name} has a :{row.pet}:")
+st.write(rows)
