@@ -40,4 +40,4 @@ def plot_raw_data():
 	
 plot_raw_data()
 
-st.write(df)
+st.write(data)
