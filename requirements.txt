@@ -1,3 +1,7 @@
-gsheetsdb==0.1.13.1
-google-oauth==1.0.1
-plotly
+streamlit
+pandas
+numpy
+urllib
+request
+ssl
+warnings
