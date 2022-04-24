@@ -12,7 +12,7 @@ st.set_page_config(page_title="Satakshi Fasion", layout="wide",initial_sidebar_s
 
 ssl._create_default_https_context = ssl._create_unverified_context
 
-st.image("https://github.com/amitkrt10/st-satakshi-fashions/blob/4df2ba8f1a83491e133e4b54b323f7696615030f/satakshi-fashions-logo.png")
+st.image("satakshi-fashions-logo.png")
 
 @st.cache(ttl=600)
 def read_gsheet(sheetId,sheetName):
