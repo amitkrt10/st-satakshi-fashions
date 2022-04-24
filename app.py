@@ -12,6 +12,8 @@ st.set_page_config(page_title="Satakshi Fasion", layout="wide",initial_sidebar_s
 
 ssl._create_default_https_context = ssl._create_unverified_context
 
+st.image("https://photos.app.goo.gl/7fUtqZQdbgeFr1ZJA")
+
 @st.cache(ttl=600)
 def read_gsheet(sheetId,sheetName):
 	url = f"https://docs.google.com/spreadsheets/d/{sheetId}/gviz/tq?tqx=out:csv&sheet={sheetName}"
