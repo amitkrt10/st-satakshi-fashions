@@ -1,43 +1,38 @@
-# streamlit_app.py
-
 import streamlit as st
-from google.oauth2 import service_account
-from gsheetsdb import connect
 import pandas as pd
-from plotly import graph_objs as go
+import numpy as np
+import urllib
+from urllib.request import urlopen
+import ssl
+import warnings
+warnings.filterwarnings("ignore")
 
-st.title("**Satakshi Fashions**")
-         
-# Create a connection object.
-credentials = service_account.Credentials.from_service_account_info(
-    st.secrets["gcp_service_account"],
-    scopes=[
-        "https://www.googleapis.com/auth/spreadsheets",
-    ],
-)
-conn = connect(credentials=credentials)
+# Configure app display
+st.set_page_config(page_title="Satakshi Fasion", layout="wide",initial_sidebar_state='collapsed')
 
-# Perform SQL query on the Google Sheet.
-# Uses st.cache to only rerun when the query changes or after 10 min.
+ssl._create_default_https_context = ssl._create_unverified_context
+
 @st.cache(ttl=600)
-def run_query(query):
-    rows = conn.execute(query, headers=1)
-    rows = rows.fetchall()
-    return rows
+def read_gsheet(sheetId,sheetName):
+	url = f"https://docs.google.com/spreadsheets/d/{sheetId}/gviz/tq?tqx=out:csv&sheet={sheetName}"
+	data = pd.read_csv(urllib.request.urlopen(url))
+	return data
 
-sheet_url = st.secrets["private_gsheets_url"]
-rows = run_query(f'SELECT * FROM "{sheet_url}"')
+salesDf = read_gsheet("1kYeoUISggtO79cZnr0zyJbnGDPFVj6HFE_1Sgti9NZg","SalesCopy")
+purchaseDf = read_gsheet("1kYeoUISggtO79cZnr0zyJbnGDPFVj6HFE_1Sgti9NZg","PurchaseCopy")
 
-data = pd.DataFrame(rows)
+typeList = list(purchaseDf['Type'].unique())
+typeList.sort()
+col1, col2 = st.columns(2)
+col1.subheader("**Price List**")
+selectCategory = col1.selectbox("Select Category",typeList)
+productList = list(purchaseDf[purchaseDf['Type']==selectCategory]['Product Name'])
+productList.sort()
+selectProduct = col1.selectbox("Select Product",productList)
 
-# Plot raw data
-def plot_raw_data():
-	fig = go.Figure()
-	fig.add_trace(go.Scatter(x=data['Type'], y=data['SP'], name="Selling Price"))
-	fig.add_trace(go.Scatter(x=data['Type'], y=data['CP'], name="Cost Price"))
-	fig.layout.update(title_text='SP and CP Trend', xaxis_rangeslider_visible=True)
-	st.plotly_chart(fig)
-	
-plot_raw_data()
-
-st.write(data)
+st.write(selectProduct)
+price = int(purchaseDf[(purchaseDf['Type']==selectCategory) & (purchaseDf['Product Name']==selectProduct)]['Unit CP With GST + Transport'])
+col1.info("Unit Price = ₹ "+str(price*2))
+c1,c2,c3,c4 = st.columns(4)
+c1.write("fid = "+str(int(price*1.4)))
+c2.write("oid = "+str(int(price*1)))
