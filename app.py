@@ -25,7 +25,7 @@ purchaseDf = read_gsheet("1kYeoUISggtO79cZnr0zyJbnGDPFVj6HFE_1Sgti9NZg","Purchas
 
 typeList = list(purchaseDf['Type'].unique())
 typeList.sort()
-st.markdown("<h3 style='text-align: center; color: Green;'>Today's Performance Dashboard</h3>", unsafe_allow_html=True)
+st.markdown("<h3 style='text-align: center; color: Brown;'>Price List</h3>", unsafe_allow_html=True)
 #st.subheader("**Price List**")
 selectCategory = st.selectbox("Select Category",typeList)
 productList = list(purchaseDf[purchaseDf['Type']==selectCategory]['Product Name'])
