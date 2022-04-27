@@ -31,7 +31,7 @@ productList = list(purchaseDf[purchaseDf['Type']==selectCategory]['Product Name'
 productList.sort()
 selectProduct = st.selectbox("Select Product",productList)
 price = int(purchaseDf[(purchaseDf['Type']==selectCategory) & (purchaseDf['Product Name']==selectProduct)]['Unit CP With GST + Transport'])
-st.info("# Unit Price = ₹ "+str(price*1.8))
+st.info("# Unit Price = ₹ "+str(int(price*1.8)))
 st.write("fid : "+str(int(price*1.4)))
 st.write("oid : "+str(int(price*1)))
 
